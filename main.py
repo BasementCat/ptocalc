@@ -70,7 +70,7 @@ def _has_entry(arg, optional=False):
     def _has_entry_impl(callback):
         @functools.wraps(callback)
         def _has_entry_wrap(args, coll, *a, **ka):
-            entry = coll.entries[getattr(args, arg)]
+            entry = coll.entries[getattr(args, arg) - 1]
             return callback(args, coll, entry, *a, **ka)
         return _has_entry_wrap
     return _has_entry_impl
@@ -262,7 +262,7 @@ def cmd_list_entries(args, coll):
                         amount=t.accrual_amount or t.accrual_total / (12 * len(t.accrual_days)),
                     )))
     entries = list(sorted(entries, key=lambda e: e[1].date))
-    headers = ['Name', 'Date', 'Status']
+    headers = ['ID', 'Name', 'Date', 'Status']
     for pto_type in types.values():
         for h in ('Tentative', 'Planned', 'Requested', 'Approved'):
             headers.append(h + ' - ' + pto_type.short_name)
@@ -336,6 +336,7 @@ def cmd_list_entries(args, coll):
                 bal_planned[entry.pto_type] -= entry.amount
                 bal_tentative[entry.pto_type] -= entry.amount
             row = [
+                entry._id,
                 f_for_status(entry, entry.name),
                 entry.date.format('YYYY-MM-DD'),
                 f_status(entry),
@@ -363,6 +364,7 @@ def cmd_list_entries(args, coll):
             bal_planned[entry.pto_type] += entry.amount
             bal_tentative[entry.pto_type] += entry.amount
             row = [
+                '',
                 Effect.DIM + Color.WHITE + types[entry.pto_type].short_name + Color.OFF + Effect.DIM_OFF,
                 entry.date.format('YYYY-MM-DD'),
                 Effect.DIM + Color.WHITE + '+' + Color.OFF + Effect.DIM_OFF,

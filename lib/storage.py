@@ -17,6 +17,8 @@ def load() -> List[PTOCollection]:
         with open(fname, 'r') as fp:
             obj = PTOCollection(**json.load(fp))
             obj.filename = os.path.basename(fname)
+            for i, v in enumerate(obj.entries):
+                v._id = i + 1
             out.append(obj)
     return list(sorted(out, key=lambda o: o.start))
 

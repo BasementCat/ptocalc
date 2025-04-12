@@ -35,6 +35,7 @@ class PTOEntry(BaseModel):
     class Config:
         arbitrary_types_allowed = True
 
+    _id: Optional[int] = None
     name: str
     pto_type: str
     date: arrow.arrow.Arrow
