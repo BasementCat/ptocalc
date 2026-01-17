@@ -6,9 +6,9 @@ name = "pypi"
 [packages]
 arrow = "*"
 tabulate = "*"
-pydantic = "*"
-appdirs = "*"
 colorist = "*"
+pydantic = "*"
+pyyaml = "*"
 
 [dev-packages]
 
