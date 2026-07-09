@@ -474,6 +474,7 @@ def list_pto(args, data):
                 running_balance[type_]['tentative'] += row.hours
             else:
                 props['state'] = 'Planned'
+                running_balance[type_]['tentative'] += row.hours
                 running_balance[type_]['planned'] += row.hours
         else:
             running_balance[type_]['planned'] += row.hours
@@ -555,6 +556,7 @@ def parse_args():
     parser.add_argument('-y', '--year', type=int, default=year, help="Year to work with")
     parser.add_argument('-F', '--filter', help="Additional filter on name to disambiguate years if necessary")
     parser.add_argument('-l', '--list-years', action='store_true', help="List all years")
+    parser.add_argument('-v', '--verbose', action='count', default=0, help="Verbosity level, specify multiple times")
     return parser.parse_args()
 
 

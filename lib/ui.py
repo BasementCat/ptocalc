@@ -3,7 +3,7 @@ from tabulate import tabulate
 
 class Table:
     def __init__(self, args, items, columns):
-        self.verbosity = 0  # TODO: from args
+        self.verbosity = args.verbose
         self.items = list(items)
         self.columns = {}
         default = {
